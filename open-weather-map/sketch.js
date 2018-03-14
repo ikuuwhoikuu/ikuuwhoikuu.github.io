@@ -1,5 +1,5 @@
 var weather;
-var api = 'http://api.openweathermap.org/data/2.5/weather?q=';
+var api = 'https://api.openweathermap.org/data/2.5/weather?q=';
 // var api = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=';
 var input;
 var apiKey = '&appid=ad6e239ec0ac58d0a9836e942aac97eb';
