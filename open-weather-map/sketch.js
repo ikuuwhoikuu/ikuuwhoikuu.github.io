@@ -10,7 +10,6 @@ var maxY = [];
 var evenY = [];
 var drop = [];
 var buttons = [];
-var cities = ["Amsterdam", "Montreal", "Tokyo"];
 var cells = [];
 
 function setup() {
@@ -23,14 +22,10 @@ function setup() {
     }
   }
 
-  for (let city of cities) {
-    let button = createButton(city);
-    button.parent("container");
-    button.size(windowWidth / cities.length, 100);
-    button.style('font-size', '30px');
-    button.mousePressed(weatherAsk.bind(null, button.html()));
-    buttons.push(button);
-  }
+  setTimeout(function() {
+    $("iframe").animate({opacity: '0.95'}, 2000);
+  }, 3000);
+
   weatherAsk();
 }
 
@@ -42,8 +37,7 @@ function windowResized() {
 }
 
 function weatherAsk(city) {
-  if (city === undefined) city = cities[0];
-  var url = api + city + apiKey + units;
+  var url = api + "Amsterdam" + apiKey + units;
   console.log(url);
   loadJSON(url, gotData);
 }
@@ -85,10 +79,10 @@ function draw() {
   pop();
 
   if (weather) {
-    fill(255);
-    noStroke();
-    let ws = weather.wind.speed + " m/s";
+    // fill(255);
+    // noStroke();
+    // let ws = weather.wind.speed + " m/s";
     // ws += " " + weather.wind.deg + "degrees";
-    text(ws, 100, height - 50);
+    // text(ws, 100, height - 50);
   }
 }
