@@ -10,7 +10,6 @@ var maxY = [];
 var evenY = [];
 var drop = [];
 var buttons = [];
-var cities = ["Amsterdam", "Montreal", "Tokyo"];
 var cells = [];
 
 function setup() {
@@ -23,14 +22,6 @@ function setup() {
     }
   }
 
-  for (let city of cities) {
-    let button = createButton(city);
-    button.parent("container");
-    button.size(windowWidth / cities.length, 100);
-    button.style('font-size', '30px');
-    button.mousePressed(weatherAsk.bind(null, button.html()));
-    buttons.push(button);
-  }
   weatherAsk();
 }
 
@@ -42,8 +33,7 @@ function windowResized() {
 }
 
 function weatherAsk(city) {
-  if (city === undefined) city = cities[0];
-  var url = api + city + apiKey + units;
+  var url = api + "Amsterdam" + apiKey + units;
   console.log(url);
   loadJSON(url, gotData);
 }
