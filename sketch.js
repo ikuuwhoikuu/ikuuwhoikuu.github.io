@@ -1,6 +1,7 @@
 var s = 64;
-var ck = 255;
+var ck = 0;
 var cn = 0;
+var loading = false;
 var start = false;
 
 var names = ["Practicing Caring",
@@ -28,6 +29,7 @@ var names = ["Practicing Caring",
 function setup() {
   let canvas = createCanvas(600, 800);
   canvas.parent("container");
+  loading = true;
 }
 
 function draw() {
@@ -36,9 +38,17 @@ function draw() {
   // translate(width/2, height/2);
   textAlign(CENTER);
 
+  if (loading) {
+    if(ck < 255) {
+      ck += 20;
+    }
+    else {
+      loading = false;
+    }
+  }
   if (start) {
     if (s < 500) {
-      s += 20;
+      s += 10;
     }
     if (ck > 0) {
       ck -= 20;
@@ -61,4 +71,5 @@ function draw() {
 
 function mousePressed() {
   start = true;
+  loading = false;
 }
