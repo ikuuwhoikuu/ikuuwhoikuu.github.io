@@ -11,6 +11,10 @@ var s = function (sketch) {
   sketch.setup = function () {
     sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
     sketch.background(0);
+
+    setTimeout(function() {
+      $("iframe").animate({opacity: '0.95'}, 2000);
+    }, 3000);
   }
 
   sketch.draw = function () {

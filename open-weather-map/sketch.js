@@ -22,6 +22,10 @@ function setup() {
     }
   }
 
+  setTimeout(function() {
+    $("iframe").animate({opacity: '0.95'}, 2000);
+  }, 3000);
+
   weatherAsk();
 }
 
