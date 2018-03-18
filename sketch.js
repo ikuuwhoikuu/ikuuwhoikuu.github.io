@@ -40,7 +40,7 @@ function draw() {
 
   if (loading) {
     if(ck < 255) {
-      ck += 20;
+      ck += 4;
     }
     else {
       loading = false;
