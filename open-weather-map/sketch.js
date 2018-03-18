@@ -15,15 +15,16 @@ var cells = [];
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight);
 
-  let side = 64;
+  let side = 32;
   for (let i = 0; i < width / side; i++) {
     for (let j = 0; j < height / side; j++) {
-      cells.push(new Cell(i * side - width / 2, j * side - height / 2, side - 6));
+      cells.push(new Cell(i * side - width / 2, j * side - height / 2, side - 2));
     }
   }
 
   setTimeout(function() {
-    $("iframe").animate({opacity: '0.95'}, 2000);
+    $("#page").animate({opacity: '0.95'}, 2000);
+    $("canvas").animate({opacity: '0.05'}, 2000);
   }, 3000);
 
   weatherAsk();

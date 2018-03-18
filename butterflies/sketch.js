@@ -13,7 +13,8 @@ var s = function (sketch) {
     sketch.background(0);
 
     setTimeout(function() {
-      $("iframe").animate({opacity: '0.95'}, 2000);
+      $("#page").animate({opacity: '0.95'}, 2000);
+      $("canvas").animate({opacity: '0.05'}, 2000);
     }, 3000);
   }
 
@@ -32,7 +33,7 @@ var s = function (sketch) {
     var xoff = 0;
     for (let i = 0; i < 1; i++) {
       sketch.push();
-      let l = sketch.width>sketch.height?sketch.height:sketch.width;
+      let l = Math.max(sketch.width, sketch.height);
       let sc = l * sketch.map(i, 0, 2, 0.5, 1);
       sketch.scale(sc, sc);
       sketch.noStroke();

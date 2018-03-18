@@ -37,7 +37,8 @@ function setup() {
   }
 
   setTimeout(function() {
-    $("iframe").animate({opacity: '0.95'}, 2000);
+    $("#page").animate({opacity: '0.95'}, 2000);
+    $("canvas").animate({opacity: '0.05'}, 2000);
   }, 3000);
 }
 
