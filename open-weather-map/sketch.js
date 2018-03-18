@@ -75,10 +75,10 @@ function draw() {
   pop();
 
   if (weather) {
-    fill(255);
-    noStroke();
-    let ws = weather.wind.speed + " m/s";
+    // fill(255);
+    // noStroke();
+    // let ws = weather.wind.speed + " m/s";
     // ws += " " + weather.wind.deg + "degrees";
-    text(ws, 100, height - 50);
+    // text(ws, 100, height - 50);
   }
 }
