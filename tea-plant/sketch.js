@@ -19,10 +19,10 @@ var s = function (sketch) {
 
   sketch.draw = function () {
     sketch.background(0);
-    angle = sketch.map(sketch.millis(), 0, 10000, sketch.TWO_PI*2, 0);
+    angle = sketch.cos(sketch.map(sketch.millis(), 0, 30000, sketch.TWO_PI*2, 0));
     sketch.noStroke();
     sketch.fill(255, 100);
-    sketch.translate(sketch.width / 2, sketch.height / 2);
+    sketch.translate(sketch.width / 2, sketch.height * 0.67);
 
     sketch.scale(4, 4);
     var len = 40;
