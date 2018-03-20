@@ -1,57 +1,62 @@
 // Daniel Shiffman
 // http://codingtra.in
-// Butterfly Wings
-// Video: [coming soon]
+// http://patreon.com/codingtrain
+// Code for: https://youtu.be/KWoJgHFYWxY
 
 // instance mode by Naoto Hieda
 
-var yoff = 0;
-var sc = 64;
-var ck = 0;
-var cn = 0;
-var loading = false;
-var start = false;
+var n = 0;
+var c = 3;
 
+var points = [];
+
+var start = 0;
+var tw = 0;
 var s = function (sketch) {
+
   sketch.setup = function () {
     sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
-    sketch.background(0);
-
+    // sketch.angleMode(sketch.DEGREES);
+    sketch.colorMode(sketch.HSB);
     setTimeout(function() {
       $("#page").animate({opacity: '0.95'}, 2000);
       $("canvas").animate({opacity: '0.05'}, 2000);
     }, 3000);
-    loading = true;
   }
 
   sketch.draw = function () {
-    sketch.background(255);
+    sketch.background(0);
+    sketch.translate(sketch.width / 2, sketch.height / 2);
+    // sketch.rotate(n * 0.3);
+    sketch.strokeWeight(3);
+    sketch.scale(2,2);
+    for (var i = 0; i < n; i++) {
+      var r = c * sketch.sqrt(i);
+      let t = sketch.sin(tw);
+      var a = i * sketch.radians(137.5 + t);
+      var x = r * sketch.cos(a);
+      var y = r * sketch.sin(a);
+      // var hu = sketch.sin(start + i * 0.5);
+      // hu = sketch.map(hu, -1, 1, 0, 360);
+      var hu = i+start;
+      hu = i/3.0 % 360;
+      // sketch.fill(255);
+      // sketch.noStroke();
+      // sketch.ellipse(x, y, 3, 3);
+      sketch.stroke(180,hu>180?255:0,255);
+      sketch.point(x, y);
+    }
+    n += 1;
+    start += 1;
 
-    // translate(width/2, height/2);
-    sketch.textAlign(sketch.CENTER);
-  
-    if (loading) {
-      if(ck < 255) {
-        ck += 4;
-      }
-      else {
-        loading = false;
-        start = true;
-      }
-    }
-    if (start) {
-      if (sc < 500) {
-        sc += 10;
-      }
-      if (ck > 0) {
-        ck -= 20;
-      } else if (cn < 255) {
-        cn += 2;
-      }
-    }
-    sketch.fill(0, ck);
-    sketch.textSize(sc);
-    sketch.text('LIGHT', sketch.width / 2, sketch.height / 2 + sc / 2);  
+    if(sketch.millis() * 0.001 % 4 < 1)
+      tw += 0.02;
+    else if(sketch.millis() * 0.001 % 4 < 2)
+      tw *= 0.75;
+    else if(sketch.millis() * 0.001 % 4 < 3)
+      tw -= 0.02;
+    else
+      tw *= 0.75;
   }
 
 };
