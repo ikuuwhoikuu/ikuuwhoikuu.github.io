@@ -1,16 +1,85 @@
+// Coding Rainbow
 // Daniel Shiffman
-// http://codingtra.in
-// Butterfly Wings
-// Video: [coming soon]
+// http://patreon.com/codingtrain
+// Code for: https://youtu.be/fcdNSZ9IzJM
 
 // instance mode by Naoto Hieda
 
-var yoff = 0;
+
+function Branch(sketch, begin, end, level) {
+  this.begin = begin;
+  this.end = end;
+  this.finished = false;
+  this.level = level;
+
+  this.points = [this.begin];
+  this.dir = p5.Vector.sub(this.end, this.begin);
+  this.curDir = this.dir.copy();
+  this.curDir.mult(30 / 1000);
+
+  this.jitter = function() {
+    this.end.x += sketch.random(-1, 1)*5;
+    this.end.y += sketch.random(-1, 1)*5;
+  }
+
+  this.show = function() {
+    sketch.stroke(255);
+    var last = this.points[this.points.length - 1];
+    if(this.level == curLevel) {
+      this.curDir.rotate(sketch.randomGaussian() * 0.1);
+      var x = last.x + this.curDir.x;
+      var y = last.y + this.curDir.y;
+      // var x = sketch.lerp(this.begin.x, this.end.x, curTime) + 5 * sketch.random(-1, 1);
+      // var y = sketch.lerp(this.begin.y, this.end.y, curTime) + 5 * sketch.random(-1, 1);
+      this.points.push(sketch.createVector(x, y));
+      this.end = this.points[this.points.length - 1];
+    }
+    // else {
+    //   sketch.line(this.begin.x, this.begin.y, this.end.x, this.end.y);
+    // }
+    for(var i = 0; i < this.points.length - 1; i++)
+    sketch.line(this.points[i].x, this.points[i].y,
+      this.points[i+1].x, this.points[i+1].y);
+  }
+
+  this.branchA = function() {
+    var dir = this.dir.copy();
+    dir.rotate(sketch.PI / 6);
+    dir.mult(0.67);
+    var newEnd = p5.Vector.add(this.end, dir);
+    var b = new Branch(sketch, this.end, newEnd, this.level+1);
+    return b;
+  }
+  this.branchB = function() {
+    var dir = this.dir.copy();
+    dir.rotate(-sketch.PI / 6);
+    dir.mult(0.67);
+    var newEnd = p5.Vector.add(this.end, dir);
+    var b = new Branch(sketch, this.end, newEnd, this.level+1);
+    return b;
+  }
+
+
+
+}
+
+var tree = [];
+var leaves = [];
+
+var count = 0;
+
+var curTime = 0;
+var curLevel = 0;
 
 var s = function (sketch) {
+
   sketch.setup = function () {
     sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
-    sketch.background(0);
+    var a = sketch.createVector(sketch.width / 2, sketch.height);
+    var b = sketch.createVector(sketch.width / 2, sketch.height - 200);
+    var root = new Branch(sketch, a, b, 0);
+
+    tree[0] = root;
 
     setTimeout(function() {
       $("#page").animate({opacity: '0.95'}, 2000);
@@ -18,49 +87,47 @@ var s = function (sketch) {
     }, 3000);
   }
 
-  sketch.draw = function () {
-    sketch.background(255, 5);
-    sketch.translate(sketch.width / 2, sketch.height / 2);
-    //rotate(PI / 2);
-
-    sketch.stroke(0);
-    sketch.fill(0, 50);
-    sketch.strokeWeight(1);
-
-    var da = sketch.PI / 100;
-    var dx = 0.05;
-
-    var xoff = 0;
-    for (let i = 0; i < 1; i++) {
-      sketch.push();
-      let l = Math.max(sketch.width, sketch.height);
-      let sc = l * sketch.map(i, 0, 2, 0.5, 1);
-      sketch.scale(sc, sc);
-      sketch.noStroke();
-      sketch.beginShape();
-      for (var a = 0; a <= sketch.TWO_PI; a += da) {
-        let angle = a;
-        var n = sketch.noise(xoff, yoff);
-        var r = sketch.sin(2 * a) * sketch.map(n, 0, 1, 0.25, 1);
-        if (0 <= a && a < sketch.PI / 2) angle += 0.2;
-        else if (sketch.PI / 2 * 3 <= a && a < sketch.PI * 2) angle -= 0.2;
-        else if (sketch.PI / 2 <= a && a < sketch.PI) { angle += 0.4; r *= 0.8; }
-        else { angle -= 0.4; r *= 0.8; }
-        var x = r * sketch.cos(angle);
-        var y = r * sketch.sin(angle);
-        if (a < sketch.PI) {
-          xoff += dx;
-        } else {
-          xoff -= dx;
-        }
-        //point(x, y);
-        sketch.vertex(x, y);
+  sketch.mousePressed = function () {
+    for (var i = tree.length - 1; i >= 0; i--) {
+      if (!tree[i].finished) {
+        tree.push(tree[i].branchA());
+        tree.push(tree[i].branchB());
       }
-      sketch.endShape();
-      sketch.pop();
-      yoff+=0.01;
+      tree[i].finished = true;
     }
-    yoff += 0.02;
+  }
+
+  sketch.draw = function () {
+    curTime = (sketch.millis() / 1000) % 8;
+    var prevLevel = curLevel;
+    curLevel = Math.floor(curTime);
+    curTime = curTime % 1;
+    if(prevLevel >= 7 && curLevel < 1) {
+      var a = sketch.createVector(sketch.width / 2, sketch.height);
+      var b = sketch.createVector(sketch.width / 2, sketch.height - 200);
+      var root = new Branch(sketch, a, b, 0);
+      tree = [root];
+      count = 0;
+    }
+    else if (prevLevel < curLevel) {
+      sketch.mousePressed();
+    }
+
+    sketch.background(0);
+
+    for (var i = 0; i < tree.length; i++) {
+      tree[i].show();
+      // if(tree[i].finished) 
+      // tree[i].jitter();
+    }
+
+    for (var i = 0; i < leaves.length; i++) {
+      sketch.fill(255, 0, 100, 100);
+      sketch.noStroke();
+      sketch.ellipse(leaves[i].x, leaves[i].y, 8, 8);
+      leaves[i].y += sketch.random(0, 2);
+    }
+
   }
 
 };
