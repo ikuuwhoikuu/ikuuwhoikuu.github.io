@@ -10,7 +10,7 @@ var points = [];
 
 var s = function (sketch) {
   sketch.setup = function () {
-    sketch.createCanvas(800, 800);
+    sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
     sketch.noiseDetail(1,0.5);
     let xoff = 0;
     for (let a = 0; a < 1; a += 0.02) {
