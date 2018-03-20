@@ -1,68 +1,89 @@
-// Daniel Shiffman
-// http://codingtra.in
-// Butterfly Wings
-// Video: [coming soon]
+var weather;
+var api = 'https://api.openweathermap.org/data/2.5/weather?q=';
+// var api = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=';
+var input;
+var apiKey = '&appid=ad6e239ec0ac58d0a9836e942aac97eb';
+var units = '&cnt=16&units=metric';
+var canvas;
+var minY = [];
+var maxY = [];
+var evenY = [];
+var drop = [];
+var buttons = [];
+var cells = [];
 
-// instance mode by Naoto Hieda
+function setup() {
+  canvas = createCanvas(windowWidth, windowHeight);
 
-var yoff = 0;
-
-var s = function (sketch) {
-  sketch.setup = function () {
-    sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
-    sketch.background(0);
-
-    setTimeout(function() {
-      $("#page").animate({opacity: '0.95'}, 2000);
-      $("canvas").animate({opacity: '0.05'}, 2000);
-    }, 3000);
-  }
-
-  sketch.draw = function () {
-    sketch.background(255, 5);
-    sketch.translate(sketch.width / 2, sketch.height / 2);
-    //rotate(PI / 2);
-
-    sketch.stroke(0);
-    sketch.fill(0, 50);
-    sketch.strokeWeight(1);
-
-    var da = sketch.PI / 100;
-    var dx = 0.05;
-
-    var xoff = 0;
-    for (let i = 0; i < 1; i++) {
-      sketch.push();
-      let l = Math.max(sketch.width, sketch.height);
-      let sc = l * sketch.map(i, 0, 2, 0.5, 1);
-      sketch.scale(sc, sc);
-      sketch.noStroke();
-      sketch.beginShape();
-      for (var a = 0; a <= sketch.TWO_PI; a += da) {
-        let angle = a;
-        var n = sketch.noise(xoff, yoff);
-        var r = sketch.sin(2 * a) * sketch.map(n, 0, 1, 0.25, 1);
-        if (0 <= a && a < sketch.PI / 2) angle += 0.2;
-        else if (sketch.PI / 2 * 3 <= a && a < sketch.PI * 2) angle -= 0.2;
-        else if (sketch.PI / 2 <= a && a < sketch.PI) { angle += 0.4; r *= 0.8; }
-        else { angle -= 0.4; r *= 0.8; }
-        var x = r * sketch.cos(angle);
-        var y = r * sketch.sin(angle);
-        if (a < sketch.PI) {
-          xoff += dx;
-        } else {
-          xoff -= dx;
-        }
-        //point(x, y);
-        sketch.vertex(x, y);
-      }
-      sketch.endShape();
-      sketch.pop();
-      yoff+=0.01;
+  let side = 32;
+  for (let i = 0; i < width / side; i++) {
+    for (let j = 0; j < height / side; j++) {
+      cells.push(new Cell(i * side - width / 2, j * side - height / 2, side - 2));
     }
-    yoff += 0.02;
   }
 
-};
+  setTimeout(function() {
+    $("#page").animate({opacity: '0.95'}, 2000);
+    $("canvas").animate({opacity: '0.05'}, 2000);
+  }, 3000);
 
-var myp5 = new p5(s);
+  weatherAsk();
+}
+
+function windowResized() {
+  for (let button of buttons) {
+    button.size(windowWidth / cities.length, 100);
+  }
+  resizeCanvas(windowWidth, windowHeight);
+}
+
+function weatherAsk(city) {
+  var url = api + "Amsterdam" + apiKey + units;
+  console.log(url);
+  loadJSON(url, gotData);
+}
+
+function gotData(data) {
+  weather = data;
+  console.log(weather);
+}
+
+var proxTh = 200;
+
+function draw() {
+  background(0);
+  push();
+  translate(width / 2, height / 2);
+
+  let phase = 0;
+  let dir = createVector(0, 1);
+  let t = 0;
+
+  let half = height / 2 * sqrt(2);
+
+  if (weather) {
+    phase = (millis() * 0.00005 * weather.wind.speed) % 1;
+    t = map(phase, 0, 1, -half - proxTh, half + proxTh);
+    dir.rotate(weather.wind.deg / 180 * PI);
+  }
+
+  noStroke();
+  for (let cell of cells) {
+    if (weather) {
+      let dot = dir.dot(cell.pos);
+      let prox = abs(dot - t);
+      cell.brightness = constrain(
+        map(prox, 0, proxTh, 255, 80), 80, 255);
+    }
+    cell.draw();
+  }
+  pop();
+
+  if (weather) {
+    // fill(255);
+    // noStroke();
+    // let ws = weather.wind.speed + " m/s";
+    // ws += " " + weather.wind.deg + "degrees";
+    // text(ws, 100, height - 50);
+  }
+}
