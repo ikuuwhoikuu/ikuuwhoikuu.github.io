@@ -18,7 +18,7 @@ class Particle {
       let dx = this.x - p.x;
       let dy = this.y - p.y;
       let d = dx * dx + dy * dy;
-      let dt = 400;
+      let dt = 200;
       if(d < dt*dt) {
 			  stroke(0, 255-sqrt(d)/dt*255);
 	      line(this.x, this.y, p.x, p.y);
