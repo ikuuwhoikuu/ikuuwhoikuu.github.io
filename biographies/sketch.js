@@ -82,7 +82,7 @@ var s = function (sketch) {
     sketch.background(255);
     sketch.fill(0);
     // sketch.textFont(font);
-    sketch.textSize(60);
+    sketch.textSize(30);
     sketch.text(result + '_', 20, 100, 700, 500);
     // if (possibilities) {
     //   sketch.text(possibilities + "  ", 20, 700);
