@@ -6,6 +6,11 @@
 // instance mode by Naoto Hieda
 
 var yoff = 0;
+var sc = 64;
+var ck = 0;
+var cn = 0;
+var loading = false;
+var start = false;
 
 var s = function (sketch) {
   sketch.setup = function () {
@@ -16,51 +21,37 @@ var s = function (sketch) {
       $("#page").animate({opacity: '0.95'}, 2000);
       $("canvas").animate({opacity: '0.05'}, 2000);
     }, 3000);
+    loading = true;
   }
 
   sketch.draw = function () {
-    sketch.background(255, 5);
-    sketch.translate(sketch.width / 2, sketch.height / 2);
-    //rotate(PI / 2);
+    sketch.background(255);
 
-    sketch.stroke(0);
-    sketch.fill(0, 50);
-    sketch.strokeWeight(1);
-
-    var da = sketch.PI / 100;
-    var dx = 0.05;
-
-    var xoff = 0;
-    for (let i = 0; i < 1; i++) {
-      sketch.push();
-      let l = Math.max(sketch.width, sketch.height);
-      let sc = l * sketch.map(i, 0, 2, 0.5, 1);
-      sketch.scale(sc, sc);
-      sketch.noStroke();
-      sketch.beginShape();
-      for (var a = 0; a <= sketch.TWO_PI; a += da) {
-        let angle = a;
-        var n = sketch.noise(xoff, yoff);
-        var r = sketch.sin(2 * a) * sketch.map(n, 0, 1, 0.25, 1);
-        if (0 <= a && a < sketch.PI / 2) angle += 0.2;
-        else if (sketch.PI / 2 * 3 <= a && a < sketch.PI * 2) angle -= 0.2;
-        else if (sketch.PI / 2 <= a && a < sketch.PI) { angle += 0.4; r *= 0.8; }
-        else { angle -= 0.4; r *= 0.8; }
-        var x = r * sketch.cos(angle);
-        var y = r * sketch.sin(angle);
-        if (a < sketch.PI) {
-          xoff += dx;
-        } else {
-          xoff -= dx;
-        }
-        //point(x, y);
-        sketch.vertex(x, y);
+    // translate(width/2, height/2);
+    sketch.textAlign(sketch.CENTER);
+  
+    if (loading) {
+      if(ck < 255) {
+        ck += 4;
       }
-      sketch.endShape();
-      sketch.pop();
-      yoff+=0.01;
+      else {
+        loading = false;
+        start = true;
+      }
     }
-    yoff += 0.02;
+    if (start) {
+      if (sc < 500) {
+        sc += 10;
+      }
+      if (ck > 0) {
+        ck -= 20;
+      } else if (cn < 255) {
+        cn += 2;
+      }
+    }
+    sketch.fill(0, ck);
+    sketch.textSize(sc);
+    sketch.text('GOOD FOOD BAD FOOD', sketch.width / 2, sketch.height / 2 + sc / 2);  
   }
 
 };
