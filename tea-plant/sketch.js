@@ -1,17 +1,16 @@
+// Coding Rainbow
 // Daniel Shiffman
-// http://codingtra.in
-// Butterfly Wings
-// Video: [coming soon]
+// http://patreon.com/codingtrain
+// Code for: https://youtu.be/0jjeOYMjmDU
 
 // instance mode by Naoto Hieda
 
-var yoff = 0;
+var angle = 0;
 
 var s = function (sketch) {
+
   sketch.setup = function () {
     sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
-    sketch.background(0);
-
     setTimeout(function() {
       $("#page").animate({opacity: '0.95'}, 2000);
       $("canvas").animate({opacity: '0.05'}, 2000);
@@ -19,50 +18,34 @@ var s = function (sketch) {
   }
 
   sketch.draw = function () {
-    sketch.background(255, 5);
+    sketch.background(0);
+    angle = sketch.map(sketch.millis(), 0, 10000, sketch.TWO_PI*2, 0);
+    sketch.noStroke();
+    sketch.fill(255, 100);
     sketch.translate(sketch.width / 2, sketch.height / 2);
-    //rotate(PI / 2);
 
-    sketch.stroke(0);
-    sketch.fill(0, 50);
-    sketch.strokeWeight(1);
-
-    var da = sketch.PI / 100;
-    var dx = 0.05;
-
-    var xoff = 0;
-    for (let i = 0; i < 1; i++) {
-      sketch.push();
-      let l = Math.max(sketch.width, sketch.height);
-      let sc = l * sketch.map(i, 0, 2, 0.5, 1);
-      sketch.scale(sc, sc);
-      sketch.noStroke();
-      sketch.beginShape();
-      for (var a = 0; a <= sketch.TWO_PI; a += da) {
-        let angle = a;
-        var n = sketch.noise(xoff, yoff);
-        var r = sketch.sin(2 * a) * sketch.map(n, 0, 1, 0.25, 1);
-        if (0 <= a && a < sketch.PI / 2) angle += 0.2;
-        else if (sketch.PI / 2 * 3 <= a && a < sketch.PI * 2) angle -= 0.2;
-        else if (sketch.PI / 2 <= a && a < sketch.PI) { angle += 0.4; r *= 0.8; }
-        else { angle -= 0.4; r *= 0.8; }
-        var x = r * sketch.cos(angle);
-        var y = r * sketch.sin(angle);
-        if (a < sketch.PI) {
-          xoff += dx;
-        } else {
-          xoff -= dx;
-        }
-        //point(x, y);
-        sketch.vertex(x, y);
-      }
-      sketch.endShape();
-      sketch.pop();
-      yoff+=0.01;
-    }
-    yoff += 0.02;
+    sketch.scale(4, 4);
+    var len = 40;
+    sketch.branch(40);
   }
 
+  sketch.branch = function (len) {
+    if (len > 10) {
+      sketch.push();
+      sketch.rotate(angle * (1 - len / 400) * (1 - len / 400) * (1 - len / 400));
+      sketch.quad(0, 0, -3, -len/2, 0, -len, 3, -len/2);
+      sketch.translate(0, -len);
+      sketch.branch(len - 10);
+      sketch.pop();
+
+      sketch.push();
+      sketch.rotate(-angle * (1 - len / 400) * (1 - len / 400) * (1 - len / 400));
+      sketch.quad(0, 0, -3, -len/2, 0, -len, 3, -len/2);
+      sketch.translate(0, -len);
+      sketch.branch(len - 10);
+      sketch.pop();
+    }
+  }
 };
 
 var myp5 = new p5(s);
