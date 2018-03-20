@@ -25,7 +25,7 @@ var s = function (sketch) {
 
   sketch.setup = function () {
     console.log(names);
-    sketch.createCanvas(800, 800);
+    sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
     for (var j = 0; j < names.length; j++) {
       var txt = names[j];
       for (var i = 0; i <= txt.length - order; i++) {
