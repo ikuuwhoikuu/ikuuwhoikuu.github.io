@@ -82,7 +82,7 @@ var s = function (sketch) {
 
   sketch.draw = function () {
     sketch.background(0);
-    if (cells.length < 1000) {
+    if (cells.length < 500) {
       for (var i = cells.length - 1; i >= 0; i--) {
         if (sketch.random(1) > 0.95) {
           var c = cells[i].mitosis();
@@ -96,17 +96,6 @@ var s = function (sketch) {
     for (var i = 0; i < cells.length; i++) {
       cells[i].move();
       cells[i].show();
-    }
-  }
-
-  sketch.mouseMoved = function () {
-    for (var i = cells.length - 1; i >= 0; i--) {
-      if (cells[i].clicked(sketch.mouseX, sketch.mouseY)) {
-        var c = cells[i].mitosis();
-        for (var j in c)
-          cells.push(c[j]);
-        cells.splice(i, 1);
-      }
     }
   }
 };
