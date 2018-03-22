@@ -60,13 +60,13 @@ function draw() {
   textSize(s);
   text('KUU', width / 2, height / 2 + s / 2);
 
-  fill(0, cn);
-  textSize(32);
-  let i = 0;
-  for (let name of names) {
-    text(name, width / 2, (i + 1) * 32);
-    i++;
-  }
+  // fill(0, cn);
+  // textSize(32);
+  // let i = 0;
+  // for (let name of names) {
+  //   text(name, width / 2, (i + 1) * 32);
+  //   i++;
+  // }
 }
 
 function mousePressed() {
