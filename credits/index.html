@@ -1,0 +1,335 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+
+<script src="../libraries/p5.min.js"></script>
+<script src="../libraries/jquery-3.3.1.min.js"></script>
+<script src="sketch.js"></script>
+<link rel="stylesheet" type="text/css" href="../page.css">
+
+<title>KUU</title>
+<script type="text/javascript">
+  WebFontConfig = {"google":{"families":["Arimo:r:latin,latin-ext","Ubuntu:r,i,b,bi:latin,latin-ext"]}};
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = 'https://s1.wp.com/wp-content/plugins/custom-fonts/js/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+	})();
+</script><style id="jetpack-custom-fonts-css">.wf-active code, .wf-active kbd, .wf-active pre, .wf-active samp{font-family:"Ubuntu",sans-serif}.wf-active body{font-family:"Ubuntu",sans-serif}.wf-active button, .wf-active input, .wf-active select{font-family:"Ubuntu",sans-serif}.wf-active textarea{font-family:"Ubuntu",sans-serif}.wf-active blockquote{font-family:"Ubuntu",sans-serif}.wf-active code, .wf-active kbd, .wf-active pre, .wf-active tt, .wf-active var{font-family:"Ubuntu",sans-serif}.wf-active .button, .wf-active .more-link, .wf-active button:not(.menu-toggle), .wf-active input[type="button"], .wf-active input[type="reset"], .wf-active input[type="submit"], .wf-active .posts-navigation .nav-links a, .wf-active #content #infinite-handle span button{font-family:"Ubuntu",sans-serif}.wf-active input[type="email"], .wf-active input[type="password"], .wf-active input[type="search"], .wf-active input[type="text"], .wf-active input[type="url"], .wf-active textarea{font-family:"Ubuntu",sans-serif}.wf-active .post-navigation{font-family:"Ubuntu",sans-serif}.wf-active .main-navigation{font-family:"Ubuntu",sans-serif}.wf-active .entry-content, .wf-active .entry-summary, .wf-active .page-content{font-family:"Ubuntu",sans-serif}.wf-active .entry-content .subtitle{font-family:"Ubuntu",sans-serif}.wf-active #comments{font-family:"Ubuntu",sans-serif}.wf-active .comment-form label{font-family:"Ubuntu",sans-serif}.wf-active .comment-form span.required{font-family:"Ubuntu",sans-serif}.wf-active .widget_recent_entries span.post-date{font-family:"Ubuntu",sans-serif}.wf-active .site-description{font-family:"Ubuntu",sans-serif}.wf-active .site-posted-on time{font-family:"Ubuntu",sans-serif}.wf-active .page-header:not(.page-header-light) .taxonomy-description{font-family:"Ubuntu",sans-serif}.wf-active .light-text{font-family:"Ubuntu",sans-serif}.wf-active .site-info{font-family:"Ubuntu",sans-serif}.wf-active .sticky-label{font-family:"Ubuntu",sans-serif}.wf-active .post-details, .wf-active .post-details a{font-family:"Ubuntu",sans-serif}.wf-active .page-links{font-family:"Ubuntu",sans-serif}.wf-active .post-edit-link{font-family:"Ubuntu",sans-serif}.wf-active .post-author-card .author-description{font-family:"Ubuntu",sans-serif}.wf-active #tinymce h1, .wf-active #tinymce h2, .wf-active #tinymce h3, .wf-active #tinymce h4, .wf-active #tinymce h5, .wf-active #tinymce h6, .wf-active .comment-content h1, .wf-active .comment-content h2, .wf-active .comment-content h3, .wf-active .comment-content h4, .wf-active .comment-content h5, .wf-active .comment-content h6, .wf-active .entry-content h1, .wf-active .entry-content h2, .wf-active .entry-content h3, .wf-active .entry-content h4, .wf-active .entry-content h5, .wf-active .entry-content h6, .wf-active .entry-summary h1, .wf-active .entry-summary h2, .wf-active .entry-summary h3, .wf-active .entry-summary h4, .wf-active .entry-summary h5, .wf-active .entry-summary h6, .wf-active .widget_text h1, .wf-active .widget_text h2, .wf-active .widget_text h3, .wf-active .widget_text h4, .wf-active .widget_text h5, .wf-active .widget_text h6{font-family:"Arimo",sans-serif;font-style:normal;font-weight:400}.wf-active h1{font-style:normal;font-weight:400}.wf-active h2{font-style:normal;font-weight:400}.wf-active h3{font-style:normal;font-weight:400}.wf-active h4{font-style:normal;font-weight:400}.wf-active h5{font-style:normal;font-weight:400}.wf-active h6{font-style:normal;font-weight:400}.wf-active blockquote h1, .wf-active blockquote h2, .wf-active blockquote h3, .wf-active blockquote h4{font-family:"Arimo",sans-serif;font-weight:400;font-style:normal}.wf-active div#jp-relatedposts h3.jp-relatedposts-headline em{font-family:"Arimo",sans-serif;font-style:normal;font-weight:400}.wf-active .comment-reply-title, .wf-active .comments-title{font-family:"Arimo",sans-serif;font-weight:400;font-style:normal}.wf-active .image-post-title{font-family:"Arimo",sans-serif;font-weight:400;font-style:normal}.wf-active .page-header:not(.page-header-light) h1{font-style:normal;font-weight:400}.wf-active .entry-title{font-family:"Arimo",sans-serif;font-style:normal;font-weight:400}.wf-active #post-cover-image .cover-meta .single-post-title{font-family:"Arimo",sans-serif;font-style:normal;font-weight:400}.wf-active #hero-header .site-title{font-family:"Arimo",sans-serif;font-style:normal;font-weight:400}.wf-active .site-header .site-title{font-style:normal;font-weight:400}.wf-active .site-header .site-description{font-style:normal;font-weight:400}</style>
+<link rel='dns-prefetch' href='//s2.wp.com' />
+<link rel='dns-prefetch' href='//s0.wp.com' />
+<link rel='dns-prefetch' href='//s1.wp.com' />
+<link rel="alternate" type="application/rss+xml" title="KUU &raquo; Feed" href="https://ikuuwhoikuu.wordpress.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="KUU &raquo; Comments Feed" href="https://ikuuwhoikuu.wordpress.com/comments/feed/" />
+	<script type="text/javascript">
+		/* <![CDATA[ */
+		function addLoadEvent(func) {
+			var oldonload = window.onload;
+			if (typeof window.onload != 'function') {
+				window.onload = func;
+			} else {
+				window.onload = function () {
+					oldonload();
+					func();
+				}
+			}
+		}
+		/* ]]> */
+	</script>
+			<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/wpcom-smileys\/twemoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/wpcom-smileys\/twemoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/s1.wp.com\/wp-includes\/js\/wp-emoji-release.min.js?m=1516999477h&ver=4.9.4"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55357,56692,8205,9792,65039],[55357,56692,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='all-css-0-1' href='https://s2.wp.com/_static/??-eJydkV1uAyEMhC9U102URH2pehaWdTdOMCDMKsrt613Un7QRlfpiedB8eDB4yeBTrBQrygw5zBNHxUv2SUCFA11/qEev+oD3scBnUjxRzc6fYVU9u0+F7Fyyq4tDaGRHgcRsPUzy4YNa2qPN6o5p8YchF1IFq8KzQD3aoD/iyRKlvQPNeHvSUMaYKhutn03vzokilWa/2/5iW0zM84AcR8pkxRKYDqxHKrBFrddA/wE5+gbDuqLuDnmcqCpq8uwCtNjfRf/RCULyrnKKNwLeguPSQwsNIU3WTusHfMkFepWXzX77tNvvNs+H0ztaaQ1y?cssminify=yes' type='text/css' media='all' />
+<style id='independent-publisher-2-style-inline-css' type='text/css'>
+.published-on, .post-permalink, .site-posted-on, .cat-links, .post-tags, .tags-links, .byline, .comments-link { clip: rect(1px, 1px, 1px, 1px); height: 1px; position: absolute; overflow: hidden; width: 1px; }
+</style>
+<link rel='stylesheet' id='print-css-1-1' href='https://s0.wp.com/wp-content/mu-plugins/global-print/global-print.css?m=1465851035h&cssminify=yes' type='text/css' media='print' />
+<link rel='stylesheet' id='all-css-2-1' href='https://s2.wp.com/_static/??-eJx9i0EKAjEMRS9kDYUZGRfiWTKltpE0KU0Grz+4EBHF1X8f3oNHD0nFszi0LXTeCokBJieVFcebjsnsAL/1rubhxkgDrOIgKa/9V5kmQg6sRT/PV+Q1t2xQJyisK/JTuLZLnOPpvMxxWu47xX5JvA==?cssminify=yes' type='text/css' media='all' />
+<script type='text/javascript' src='https://s1.wp.com/_static/??-eJyFztEKwjAMBdAfsquTiXsRv6XWOFKXtDbphn69HeiDMBQCgdzDJXZOBtmP5QJiQ517gfx4rybIxv4ChnDITqEh5A/2kRVYF0vxjCOYIpDdUG+16BpXXIqiBCIVraTfLyFPCPNfFkCT8zeTQfC5tJ7o2Hb9Yde3+24bXjRNW9I='></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://ikuuwhoikuu.wordpress.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress.com" />
+<link rel="canonical" href="https://ikuuwhoikuu.wordpress.com/" />
+<link rel='shortlink' href='https://wp.me/P9HNiR-1s' />
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/?format=json&amp;url=https%3A%2F%2Fikuuwhoikuu.wordpress.com%2F&amp;for=wpcom-auto-discovery" /><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/?format=xml&amp;url=https%3A%2F%2Fikuuwhoikuu.wordpress.com%2F&amp;for=wpcom-auto-discovery" />
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="KUU" />
+<meta property="og:url" content="https://ikuuwhoikuu.wordpress.com/" />
+<meta property="og:site_name" content="KUU" />
+<meta property="og:image" content="https://s0.wp.com/i/blank.jpg" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:site" content="@wordpressdotcom" />
+<meta name="twitter:text:title" content="Credits behind Kuu" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:description" content="Visit the post for more." />
+<meta property="fb:app_id" content="249643311490" />
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom" />
+<link rel="shortcut icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48" />
+<link rel="icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48" />
+<link rel="apple-touch-icon-precomposed" href="https://s0.wp.com/i/webclip.png" />
+<link rel="search" type="application/opensearchdescription+xml" href="https://ikuuwhoikuu.wordpress.com/osd.xml" title="KUU" />
+<link rel="search" type="application/opensearchdescription+xml" href="https://s1.wp.com/opensearch.xml" title="WordPress.com" />
+<meta name="theme-color" content="#bcd5e5" />
+<meta name="application-name" content="KUU" /><meta name="msapplication-window" content="width=device-width;height=device-height" /><meta name="msapplication-task" content="name=Subscribe;action-uri=https://ikuuwhoikuu.wordpress.com/feed/;icon-uri=https://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico" /><meta name="title" content="Credits behind Kuu | KUU on WordPress.com" />
+<meta name="description" content="Ana Vujanovic Andreas Chanis Antonia Steffens Caligo Eurilochus Camellia Sinensis Charlie Laban Trier Charlot Van Der Meer Christopher Kinsey Coffea Elisa Zuppini Ficus Lyrata Bambino (Tabaksplant) Frits and co. Francesco Zatelli Fungi Het Veem Jur de Vries Laima Jaunzema Led Par Marcel Smit Martin Kaffarnik Mehraneh Atashi Mesh Michael Scerbo Microbiome Mist Foggers Morpho Polyphemus&hellip;" />
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #bcd5e5; }
+</style>
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<style type="text/css" id="custom-colors-css">.has-header-image .site-title a,.has-header-image .site-title a:visited{color:#fff}@media screen and (max-width:32.374em){.main-navigation ul ul{background:0 0 !important}.main-navigation ul ul a{color:inherit !important}}.widget_recent_comments a,.widget_recent_entries a,body,button,input,select,textarea{color:#383838}#infinite-footer .blog-info a:hover,#infinite-footer .blog-credits a:hover{color:#383838}.posts-navigation .nav-links a,.main-navigation ul ul a{color:#686868}button:not(.menu-toggle),input[type=button],input[type=reset],input[type=submit],.button,#content #infinite-handle span button,.more-link{color:#686868}.site-main>.hentry:nth-child(n+2),.site .infinite-wrap>.hentry:nth-child(n+2),.entry-author-wrapper,.post-navigation,.comment,.page-links a:hover,.main-navigation li{border-color:#ddd}.site-main>.hentry:nth-child(n+2),.site .infinite-wrap>.hentry:nth-child(n+2),.entry-author-wrapper,.post-navigation,.comment,.page-links a:hover,.main-navigation li{border-color:rgba(221,221,221,.25)}#infinite-footer .blog-info a,#infinite-footer .blog-credits,#infinite-footer .blog-credits a{color:#515151}.post-details,.post-details a,.post-details a:visited,.post-edit-link a,.post-edit-link a:visited{color:#525250}.post-tags li:first-child,.jetpack-social-navigation li a:hover,.widget_wpcom_social_media_icons_widget li a:hover,.jetpack-social-navigation li a:focus,.widget_wpcom_social_media_icons_widget li a:focus,.jetpack-social-navigation li a:active,.widget_wpcom_social_media_icons_widget li a:active{color:#515151}.jetpack-social-navigation li a,.widget_wpcom_social_media_icons_widget li a{color:#515151}.post-navigation .nav-links a:hover,.post-navigation .nav-links a:focus,.post-navigation .nav-links a:active,.entry-author .author-bio,.site-posted-on time,.site-description{color:#515151}.comment .comment-meta,.comment-form label,.light-text,.light-text a,.light-text a:visited,.widget_rss .rss-date,.widget_rss li>cite{color:#525250}.light-text a:hover{color:#525250}body{background-color:#bcd5e5}#infinite-footer .container{background-color:#bcd5e5}#infinite-footer .container{background-color:rgba(188,213,229,.7)}.post-edit-link a{background-color:#b5d1e2}.entry-author .author-title,.entry-title,.entry-title a,.entry-title a:visited,.site-posted-on strong,.site-title,.site-title a,.site-title a:visited,.entry-title a:hover,.site-title a:hover,h1,h2,h3,h4,h5,h6,.page-header:not(.page-header-light) h1,.comment .comment-meta .comment-author .fn{color:#383838}.comment-form input[type=email]:active,.comment-form input[type=email]:focus,.comment-form input[type=password]:active,.comment-form input[type=password]:focus,.comment-form input[type=search]:active,.comment-form input[type=search]:focus,.comment-form input[type=text]:active,.comment-form input[type=text]:focus,.comment-form input[type=url]:active,.comment-form input[type=url]:focus,.comment-form textarea:active,.comment-form textarea:focus,blockquote,input[type=email]:focus,input[type=password]:focus,input[type=search]:focus,input[type=text]:focus,input[type=url]:focus,textarea:focus{border-color:#f5f5f3}.comment .comment-meta .comment-metadata a:hover,.comment-form span.required,.pingback:before,.post-details a:hover,.post-edit-link a:active,.post-edit-link a:focus,.post-edit-link a:hover,.site-info a:hover,.trackback:before,a,a:visited{color:#545444}.main-navigation li.current-menu-item>a,.main-navigation li.current_page_item>a,a:active,a:focus,a:hover,.page-links a:hover{color:#94947f}.posts-navigation .nav-links a,.main-navigation ul ul{background-color:#f5f5f3}button:not(.menu-toggle),input[type=button],input[type=reset],input[type=submit],.button,#content #infinite-handle span button,.more-link{background-color:#f5f5f3}</style>
+</head>
+
+<body class="home page-template-default page page-id-90 custom-background mp6 customizer-styles-applied date-hidden categories-hidden tags-hidden author-hidden comment-hidden highlander-enabled highlander-light">
+
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<div id="hero-header" class="site-hero-section">
+		<header id="masthead" class="site-header" role="banner">
+			<div class="inner">
+				<div class="site-branding">
+					
+												<p class="site-title"><a href="https://ikuuwhoikuu.wordpress.com/" rel="home">KUU</a></p>
+										</div><!-- .site-branding -->
+
+				
+				
+			</div><!-- .inner -->
+		</header><!-- #masthead -->
+	</div>
+
+		
+	
+	
+	<div id="content-wrapper" class="content-wrapper">
+		<div id="content" class="site-content">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+			
+				
+<article id="post-90" class="post-90 page type-page status-publish hentry">
+			<header class="entry-header">
+			<h1 class="entry-title">Credits behind Kuu</h1>		</header><!-- .entry-header -->
+	<div class="entry-content">
+		<p>Ana Vujanovic<br />
+Andreas Chanis<br />
+Antonia Steffens<br />
+Caligo Eurilochus<br />
+Camellia Sinensis<br />
+Charlie Laban Trier<br />
+Charlot Van Der Meer<br />
+Christopher Kinsey<br />
+Coffea<br />
+Elisa Zuppini<br />
+Ficus Lyrata Bambino (Tabaksplant)<br />
+Frits and co.<br />
+Francesco Zatelli<br />
+Fungi<br />
+Het Veem<br />
+Jur de Vries<br />
+Laima Jaunzema<br />
+Led Par<br />
+Marcel Smit<br />
+Martin Kaffarnik<br />
+Mehraneh Atashi<br />
+Mesh<br />
+Michael Scerbo<br />
+Microbiome<br />
+Mist Foggers<br />
+Morpho Polyphemus<br />
+Naoto Hiéda<br />
+Nele<br />
+Paul Jongerius<br />
+Renée Copraij<br />
+Sharyselle Kock<br />
+Soil<br />
+Sound Boxes<br />
+Stephanie Lühn<br />
+Vincent Romijn<br />
+4DSOUND</p>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-90" class="share-twitter sd-button share-icon" href="https://ikuuwhoikuu.wordpress.com/?share=twitter" target="_blank" title="Click to share on Twitter"><span>Twitter</span></a></li><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-90" class="share-facebook sd-button share-icon" href="https://ikuuwhoikuu.wordpress.com/?share=facebook" target="_blank" title="Share on Facebook"><span>Facebook</span></a></li><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-90" class="share-google-plus-1 sd-button share-icon" href="https://ikuuwhoikuu.wordpress.com/?share=google-plus-1" target="_blank" title="Click to share on Google+"><span>Google</span></a></li><li class="share-end"></li></ul></div></div></div></div>	</div><!-- .entry-content -->
+
+	</article><!-- #post-## -->
+
+				
+			
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+		</div><!-- #content -->
+
+		<footer id="colophon" class="site-footer" role="contentinfo">
+						<div class="site-info">
+				<a href="https://wordpress.com/?ref=footer_custom_com">WordPress.com</a>.
+				
+							</div><!-- .site-info -->
+		</footer><!-- #colophon -->
+	</div><!-- #content-wrapper -->
+</div><!-- #page -->
+
+<!--  -->
+<script type='text/javascript' src='//0.gravatar.com/js/gprofiles.js?ver=201812y'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://s1.wp.com/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1380573781h'></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+
+			if (typeof Gravatar === "undefined"){
+				return;
+			}
+
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	</div>
+
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/ikuuwhoikuu.wordpress.com\/":90};
+	</script>
+		<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+		<script type='text/javascript'>
+/* <![CDATA[ */
+var comment_like_text = {"loading":"Loading..."};
+/* ]]> */
+</script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var actionbardata = {"siteID":"143424653","siteName":"KUU","siteURL":"http:\/\/ikuuwhoikuu.wordpress.com","icon":"<img alt='' src='https:\/\/s1.wp.com\/i\/logo\/wpcom-gray-white.png' class='avatar avatar-50' height='50' width='50' \/>","canManageOptions":"","canCustomizeSite":"","isFollowing":"","themeSlug":"pub\/independent-publisher-2","signupURL":"https:\/\/wordpress.com\/start\/","loginURL":"https:\/\/ikuuwhoikuu.wordpress.com\/wp-login.php?redirect_to=https%3A%2F%2Fikuuwhoikuu.wordpress.com%2F","themeURL":"https:\/\/wordpress.com\/theme\/independent-publisher-2\/","xhrURL":"https:\/\/ikuuwhoikuu.wordpress.com\/wp-admin\/admin-ajax.php","nonce":"aedada5413","isSingular":"1","isFolded":"","isLoggedIn":"","isMobile":"","subscribeNonce":"<input type=\"hidden\" id=\"_wpnonce\" name=\"_wpnonce\" value=\"600f096f75\" \/>","referer":"https:\/\/ikuuwhoikuu.wordpress.com\/","canFollow":"","feedID":"79853183","statusMessage":"","customizeLink":"https:\/\/ikuuwhoikuu.wordpress.com\/wp-admin\/customize.php?url=https%3A%2F%2Fikuuwhoikuu.wordpress.com%2F","postID":"90","shortlink":"https:\/\/wp.me\/P9HNiR-1s","canEditPost":"","editLink":"https:\/\/wordpress.com\/page\/ikuuwhoikuu.wordpress.com\/90","statsLink":"https:\/\/wordpress.com\/stats\/post\/90\/ikuuwhoikuu.wordpress.com","i18n":{"view":"View site","follow":"Follow","following":"Following","edit":"Edit","login":"Log in","signup":"Sign up","customize":"Customize","report":"Report this content","themeInfo":"Get theme: Independent Publisher 2","shortlink":"Copy shortlink","copied":"Copied","followedText":"New posts from this site will now appear in your <a href=\"https:\/\/wordpress.com\/\">Reader<\/a>","foldBar":"Collapse this bar","unfoldBar":"Expand this bar","editSubs":"Manage subscriptions","viewReader":"View site in Reader","viewReadPost":"View post in Reader","subscribe":"Sign me up","enterEmail":"Enter your email address","followers":"","alreadyUser":"Already have a WordPress.com account? <a href=\"https:\/\/ikuuwhoikuu.wordpress.com\/wp-login.php?redirect_to=https%3A%2F%2Fikuuwhoikuu.wordpress.com%2F\">Log in now.<\/a>","stats":"Stats"}};
+/* ]]> */
+</script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://s2.wp.com/_static/??-eJydkdFuwyAMRX9ozEq1rk/TvoWAkzgJxsOQ9PNHNK3qVi1a+wLGvuciLrCKcZEzcoZRweNCDuX8POoTXI1CMTKXnlhhpgkVPgoWHCz7GdOO2MUQast8QeNGt6ArCd4D/Wj8BvOAocqktEDsUbAuVVvPM+mAyRw2C7YL9TZT5Mf4P0aPmelEUh/Dk+miK2o6ugn8H0bEDtQlkmxWqRHtJGp9IDatTRCsZky1MnHBlMjXSy69Ox1ysm66+Y9ryG2Bb9Cl2lFL1Gy62VICHWwi7r/3Cr2Ht+Z4aF6Pp5fmNH4CIMwEFw=='></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script>	<script type="text/javascript">
+	var skimlinks_pub_id = "725X584219"
+	var skimlinks_sitename = "ikuuwhoikuu.wordpress.com";
+	</script>
+	<script type="text/javascript" defer src="https://s.skimresources.com/js/725X1342.skimlinks.js"></script><script src="//stats.wp.com/w.js?56" type="text/javascript" async defer></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'143424653','blog_tz':'0','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+_stq.push(['view', {'blog':'143424653','v':'wpcom','tz':'0','user_id':'0','post':'90','subd':'ikuuwhoikuu'}]);
+_stq.push(['extra', {'crypt':'UE40eW5QN0p8M2Y/RE1mJVY3bm9aR3VCbS9mWm1pRyZuJS1LX1t5QmRXZzE3RC9rQWZHK1FjbDltdWdaMVFFZTcxUGVHLWR0WTJoS05QSm18aVRSN010PUsydXZBQ35kQmdGSnBHXTU2VVNfUmZbTHYuQ05LVlhxJXM4ZHh1akktXWc9ZnNNanlLSS4udVpdUUEveWQ9fmJrTSVYQ2R8ZEZ4flB0N3gzb0lVTU9JOGVCSEQ9eXNMU2pYMkVNdEhDR2E2ZCZxfG5COUUxb2olLkFOfnE9ckQxSHYmeEo2dk9zOEl+VE9iZzM1VEpXQX43MnQ1NGNYRD9lfA=='}]);
+_stq.push([ 'clickTrackerInit', '143424653', '90' ]);
+	</script>
+<noscript><img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+</body>
+</html>
