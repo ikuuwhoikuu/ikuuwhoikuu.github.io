@@ -1,94 +1,69 @@
-// Daniel Shiffman
-// http://codingtra.in
-// http://patreon.com/codingtrain
-// Code for: https://youtu.be/9r8CmofnbAQ
+circleCount = 100
+diameter = 300
+radius = diameter / 2
+angleOffset = 400
+rotSpeed = 0.0001
+phase = 0
+depth = 300
+freq = 0.01
 
-// instance mode by Naoto Hieda
+function setup() {
+  createCanvas(windowWidth, windowHeight)
+  background(0)
+  stroke(255)
+  noFill()
+  textAlign(CENTER)
+  textSize(16)
 
-//var txt = "the theremin is theirs, ok? yes, it is. this is a theremin.";
-//var txt = "The unicorn is a legendary creature that has been described since antiquity as a beast with a large, pointed, spiraling horn projecting from its forehead. The unicorn was depicted in ancient seals of the Indus Valley Civilization and was mentioned by the ancient Greeks in accounts of natural history by various writers, including Ctesias, Strabo, Pliny the Younger, and Aelian.[1] The Bible also describes an animal, the re'em, which some translations have erroneously rendered with the word unicorn.[1] In European folklore, the unicorn is often depicted as a white horse-like or goat-like animal with a long horn and cloven hooves (sometimes a goat's beard). In the Middle Ages and Renaissance, it was commonly described as an extremely wild woodland creature, a symbol of purity and grace, which could only be captured by a virgin. In the encyclopedias its horn was said to have the power to render poisoned water potable and to heal sickness. In medieval and Renaissance times, the tusk of the narwhal was sometimes sold as unicorn horn.";
-var names;
-var order = 2;
-var ngrams = {};
-var beginnings = [];
-var button;
-var result = "";
-var font;
-var currentGram;
-var slowdown = false;
+  setTimeout(function() {
+    $("#page").animate({opacity: '0.95'}, 2000);
+    $("canvas").animate({opacity: '0.05'}, 2000);
+  }, 3000);
+}
 
-var s = function (sketch) {
+function draw() {
+  background(255, 255, 255)
+  fill(0, random(100)+155, 0)
 
-  sketch.preload = function () {
-    names = sketch.loadStrings('names.txt');
+  mouseX = 100;
+  mouseY = 240;
+  
+  depth = map(mouseX, 0, width, -300, 300)
+  diameter = map(mouseX, 0, width, 20, 300)
+  radius = diameter / 2
+
+  colorHi = map(mouseY, 0, height, 255, 50)
+  colorLo = map(mouseY, 0, height, 100, 0)
+
+  if (abs(mouseX - (width / 2)) < 100 && abs(mouseY - (height / 2)) < 100) {
+    colorHi = 255
+    colorLo = 200
   }
 
-  sketch.setup = function () {
-    console.log(names);
-    sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
-    for (var j = 0; j < names.length; j++) {
-      var txt = names[j];
-      for (var i = 0; i <= txt.length - order; i++) {
-        var gram = txt.substring(i, i + order);
-        if (i == 0) {
-          beginnings.push(gram);
-        }
+  push()
+  translate((width / 2) + (random(0) - 5), (height / 2) + (random(0) - 5))
 
-        if (!ngrams[gram]) {
-          ngrams[gram] = [];
-        }
-        ngrams[gram].push(txt.charAt(i + order));
-      }
-    }
-    // button = sketch.createButton("generate");
-    // button.mousePressed(sketch.markovIt);
-    console.log(ngrams);
+  for (i = 0; i < circleCount; i++) {
+    //push()
+    //rotate((TWO_PI / circleCount) * i + angleOffset)
+    rotate((TWO_PI / circleCount) + angleOffset)
 
-    currentGram = sketch.random(beginnings);
-    result = currentGram;
+    modulation = sin(TWO_PI * ((1 / circleCount) * i + phase))
 
-    setTimeout(function() {
-      $("#page").animate({opacity: '0.95'}, 2000);
-      $("canvas").animate({opacity: '0.05'}, 2000);
-      slowdown = true;
-    }, 3000);
-    loading = true;
+    lineColor = map(pow(abs(modulation), 8), 0, 1, colorLo, colorHi)
+    stroke(lineColor/2, lineColor, 255)
+
+    //strokeWeight(random(0.1))
+    strokeWeight(0.1)
+
+    radOffset = modulation * depth
+
+    ellipse(0, radius + radOffset, 4, 4)
+    line(0, radius + radOffset, 0, width)
+    //pop()
   }
+  pop()
 
-  sketch.markovIt = function () {
-
-
-    // sketch.createP(result);
-
-  }
-
-  sketch.draw = function () {
-    if (sketch.frameCount % 60 == 0) {
-      if(slowdown == false || sketch.frameCount % 320 == 0) {
-        currentGram = sketch.random(beginnings);
-        result = currentGram;
-        }
-    }
-    else if (sketch.frameCount % 2 == 0) {
-
-      var possibilities = ngrams[currentGram];
-      if (possibilities) {
-        var next = sketch.random(possibilities);
-        result += next;
-        var len = result.length;
-        currentGram = result.substring(len - order, len);
-      }
-    }
-    sketch.background(255);
-    sketch.fill(0);
-    // sketch.textFont(font);
-    sketch.textSize(30);
-    sketch.text(result + '_', 20, 100, sketch.width - 40, 500);
-    // if (possibilities) {
-    //   sketch.text(possibilities + "  ", 20, 700);
-    // }
-  }
-
-};
-
-var myp5 = new p5(s);
+  angleOffset += rotSpeed
+  phase = phase + freq
+}
