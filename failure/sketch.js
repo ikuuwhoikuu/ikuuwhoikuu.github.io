@@ -4,7 +4,7 @@ var s = function (sketch) {
     setTimeout(function() {
       $("#page").animate({opacity: '0.95'}, 2000);
       $("video").animate({opacity: '0.05'}, 2000);
-    }, 3000);
+    }, 1000*90);
   }
 
 };
